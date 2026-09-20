@@ -1,0 +1,214 @@
+body[data-mode=home]{background:#f6f5f2}#projectHome{display:grid;place-items:center;min-height:100vh;padding:36px}.start-grid{width:min(980px,100%);display:grid;grid-template-columns:1fr 1fr;gap:24px}.start-card{background:#fff;border:1px solid #e0e4e9;border-radius:14px;padding:34px;display:flex;flex-direction:column;min-height:390px}.start-card h1{font-size:24px;font-weight:650;margin:0 0 30px;letter-spacing:-.5px}.drop-target{flex:1;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px;border:1px dashed #bccadd;border-radius:8px;background:#fafbfd;color:#617086;min-height:240px;cursor:pointer}.drop-target.drag-over{background:#e8effa;border:2px solid #5375a1}.drop-target svg{width:44px;height:44px;stroke:#344f75;fill:none;stroke-width:1.5}.drop-target small{font-size:12px;color:#929baa}.start-previews{display:flex;gap:12px;align-items:center;justify-content:center;flex:1;margin-bottom:23px}.start-previews .template-preview{width:30%;height:166px;padding:14px 10px;margin:0;box-shadow:0 5px 14px #2534500b}.start-card>.primary{width:100%;padding:13px}.template-picker{width:900px}.template-picker .template-grid{grid-template-columns:repeat(3,1fr);max-height:62vh;overflow:auto;padding:3px}.template-picker .template-preview{height:100px}.template-picker .template-card{padding:12px}.version-actions{display:flex;gap:5px}.version-actions button{padding:8px;font-size:12px;white-space:nowrap}.base-actions{display:flex;gap:6px;margin:10px 0}.base-actions button{flex:1;padding:8px 4px;font-size:11px}.base-actions button:disabled{opacity:.4;cursor:default}#sideHint,.footer-note{display:none}.side-head #search{margin:5px 0 12px}#library>.notice{display:none}.photo-resize{position:absolute;bottom:0;right:0;width:13px;height:13px;background:#fff;border:2px solid #56739f;cursor:nwse-resize;z-index:5;opacity:0}.photo-box:hover .photo-resize{opacity:1}.photo-dialog{width:710px}.photo-options{display:flex;justify-content:space-between;align-items:center;margin:18px 0}.photo-empty{padding:45px;text-align:center;background:#f5f6f8;border-radius:8px;color:#8994a3}.crop-controls output{float:right;color:#748298;font-size:11px}.simple-courses{width:640px}.simple-courses .course-tools{justify-content:space-between}.simple-courses .course-scroll{max-height:48vh}.simple-courses .course-table th:nth-child(1){width:42px}.simple-courses .course-table th:nth-child(3){width:100px}.simple-courses .course-table th:last-child{width:60px}.simple-courses .course-name small{display:none}.page-fields{display:grid;grid-template-columns:1fr 1fr;gap:10px}.page-fields input{width:100%;min-width:0}.export-options{display:grid;gap:12px;margin-top:20px}.export-options button{text-align:left;padding:15px}.export-options small{display:block;margin-top:6px;color:#7b8798}.paper .cv-columns{min-width:0}.paper[data-theme=sidebar] .cv-columns{grid-template-columns:minmax(0,30%) minmax(0,1fr);gap:6mm}.paper .cv-entry-heading{overflow-wrap:anywhere}.paper .cv-contact{overflow-wrap:anywhere}.paper[data-theme=ledger] .cv-section{grid-template-columns:minmax(16mm,18%) minmax(0,1fr);gap:5mm}.paper[data-theme=folio] .cv-columns{gap:5mm}.paper[data-theme=folio] .cv-secondary{padding-left:4mm}
+@media screen and (min-width:651px){body[data-mode=editing]{height:100vh;overflow:hidden}.workspace,.main,#canvas{min-height:0}.workspace{overflow:hidden}}
+@media(max-width:650px){#projectHome{padding:22px}.start-grid{grid-template-columns:1fr;max-width:430px;gap:16px}.start-card{min-height:285px;padding:25px}.start-card h1{font-size:22px;margin-bottom:20px}.drop-target{min-height:180px}.start-previews .template-preview{height:110px}.template-picker .template-grid{grid-template-columns:1fr 1fr}.crop-workspace{grid-template-columns:1fr}.crop-preview{width:140px}.project-identity{max-width:100%}}
+@media print{.photo-resize{display:none!important}#projectHome{display:none!important}.paper{min-height:var(--page-height,297mm)!important;width:var(--page-width,210mm)!important}.photo-box{outline:0!important}}
+
+/* v5: compact top actions, vertical template gallery, and a real sample resume. */
+.top-base-actions{display:flex;gap:5px;margin:0}.top-base-actions button{padding:8px 10px;font-size:12px;white-space:nowrap}.top-base-actions button:disabled{opacity:.42;cursor:default}.start-card .start-previews{pointer-events:none}
+.template-picker{width:min(1120px,94vw);max-height:94vh}.template-stack{display:grid;gap:14px;max-height:73vh;overflow:auto;padding:4px 6px 8px 2px}.template-option{display:grid;grid-template-columns:minmax(0,1fr) 170px;align-items:center;gap:20px;padding:16px;border:1px solid #dfe4ea;border-radius:10px;background:#fbfcfd}.template-option:hover{border-color:#94a9ca;background:#f8fbff}.template-option-side h3{margin:0 0 7px;font-size:17px}.template-option-side p{margin:0 0 16px;color:#7c8796;font-size:12px;line-height:1.6}.template-option-side button{width:100%}.sample-paper-wrap{height:430px;overflow:hidden;display:flex;justify-content:center;align-items:flex-start;padding:10px;background:#f1f2f1;border-radius:7px}.sample-paper{width:794px;height:1122px;flex-shrink:0;transform:scale(.36);transform-origin:top center;background:#fff;color:#293448;padding:62px 68px;font:18px/1.55 -apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;box-shadow:0 3px 18px #26384d19;--sample-accent:#293f6c}.sample-head{display:flex;justify-content:space-between;gap:24px;padding-bottom:23px;border-bottom:3px solid var(--sample-accent);margin-bottom:22px}.sample-head h3{font-size:38px;line-height:1.2;margin:0;color:var(--sample-accent)}.sample-head p{font-size:19px;font-weight:600;margin:8px 0 5px}.sample-head small{font-size:14px;color:#788396}.sample-avatar{width:92px;height:116px;border-radius:4px;background:#dce6eb;color:#416172;display:grid;place-items:center;font-size:28px;font-weight:700}.sample-section{margin:18px 0}.sample-section h4{font-size:19px;color:var(--sample-accent);border-bottom:1px solid #bdc6d0;padding-bottom:7px;margin:0 0 13px}.sample-entry{margin:0 0 15px}.sample-entry header{height:auto;padding:0;background:none;border:0;display:flex;justify-content:space-between;font-size:17px;font-weight:700}.sample-entry header span{font-size:14px;font-weight:400;white-space:nowrap;color:#6b788b}.sample-entry p{font-size:15px;color:#687589;margin:4px 0}.sample-entry ul{margin:6px 0;padding-left:23px}.sample-entry li{font-size:15px;margin:4px 0}.sample-paper.sample-classic{--sample-accent:#222;font-family:Georgia,"Songti SC",serif}.sample-paper.sample-classic .sample-head{text-align:center;border-bottom:2px solid #222}.sample-paper.sample-classic .sample-avatar{display:none}.sample-paper.sample-academic{--sample-accent:#34465e}.sample-paper.sample-academic .sample-head{text-align:center;border-bottom:0}.sample-paper.sample-academic .sample-section h4{background:#eff1f4;border:0;padding:7px 11px}.sample-paper.sample-sidebar{--sample-accent:#325663}.sample-paper.sample-sidebar .sample-head{border-bottom:4px solid var(--sample-accent)}.sample-paper.sample-editorial{--sample-accent:#9a5b3b;border-top:16px solid var(--sample-accent)}.sample-paper.sample-editorial .sample-section h4{border:0;border-left:4px solid var(--sample-accent);padding-left:10px}.sample-paper.sample-timeline{--sample-accent:#356b71}.sample-paper.sample-timeline .sample-entry{border-left:2px solid #b9ced0;padding-left:14px}.sample-paper.sample-ink{--sample-accent:#243448}.sample-paper.sample-ink .sample-head{background:#243448;color:#fff;margin:-62px -68px 22px;padding:38px 68px 25px;border:0}.sample-paper.sample-ink .sample-head h3{color:#fff}.sample-paper.sample-ink .sample-head p,.sample-paper.sample-ink .sample-head small{color:#dce4ea}.sample-paper.sample-ledger{--sample-accent:#a33e2d}.sample-paper.sample-ledger .sample-section{display:grid;grid-template-columns:112px 1fr;gap:18px}.sample-paper.sample-ledger .sample-section h4{border:0;margin:0}.sample-paper.sample-ledger .sample-section>.sample-entry{grid-column:2}.sample-paper.sample-folio{--sample-accent:#4d6346}.sample-paper.sample-folio .sample-head{border-bottom:1px solid #bdc9b9}.sample-paper.sample-folio .sample-section h4{border:0}.sample-paper.sample-folio .sample-avatar{background:#e5eadf;color:#4d6346}
+.simple-courses{width:720px}.simple-courses .course-table th:first-child,.simple-courses .course-table td:first-child{width:auto}.simple-courses .course-table th:nth-child(3),.simple-courses .course-table td:nth-child(3){width:100px;text-align:center}.simple-courses .course-table th:last-child,.simple-courses .course-table td:last-child{width:56px}.simple-courses .course-table input[type=checkbox]{width:15px;height:15px}.simple-courses .course-table td{vertical-align:middle}.module-delete{color:#a43d3d!important;border-color:#edcccc!important}.module-delete:hover{background:#fff1f1!important}
+@media(max-width:700px){.template-option{grid-template-columns:1fr}.sample-paper-wrap{height:380px}.template-option-side{display:grid;grid-template-columns:1fr auto;gap:10px;align-items:center}.template-option-side h3,.template-option-side p{grid-column:1}.template-option-side button{grid-column:2;grid-row:1/3}.top-base-actions button{font-size:11px;padding:7px 6px}}
+
+/* v6: compact template/sample gallery and per-version section ordering. */
+.template-picker{width:min(1240px,96vw);padding:22px;}
+.template-picker h2{margin-bottom:14px}
+.template-stack{grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;max-height:76vh;padding:2px 2px 8px}
+.template-option{display:flex;flex-direction:column;align-items:stretch;gap:9px;padding:10px;min-width:0}
+.template-option:hover{transform:translateY(-1px);box-shadow:0 6px 20px #26384d12}
+.template-option .sample-paper-wrap{height:274px;padding:8px}
+.template-option .sample-paper{transform:scale(.235);transform-origin:top center}
+.template-option-side{display:grid;grid-template-columns:1fr auto;gap:5px 8px;align-items:center}
+.template-option-side h3{font-size:14px;margin:0;grid-column:1/-1}
+.template-option-side p{font-size:11px;line-height:1.45;margin:0;color:#7c8796;grid-column:1}
+.template-option-side button{font-size:11px;padding:7px 9px;grid-column:2;grid-row:2;white-space:nowrap}
+.template-option-side .sample-open{grid-column:1;grid-row:2;background:white;color:#2e486e;border-color:#aebdd2}
+.home-theme-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.home-theme{padding:14px;min-width:0}
+.home-theme .template-preview{height:138px;width:104px;margin-bottom:12px}
+.home-theme .sample-thumb{height:190px;width:140px;overflow:hidden;background:#f0f2f1;border-radius:6px;margin:0 auto 12px;display:flex;justify-content:center;align-items:flex-start}
+.home-theme .sample-thumb .sample-paper{transform:scale(.17);transform-origin:top center;flex:none}
+.home-theme .sample-person{font-size:11px;color:#52657d;margin-top:5px;display:block}
+.home-theme .home-theme-actions{display:flex;gap:7px;margin-top:12px}
+.home-theme .home-theme-actions button{flex:1;font-size:11px;padding:7px 6px}
+.home-theme .home-theme-actions .sample-open{background:white;color:#2e486e;border-color:#aebdd2}
+.template-person-badge{font-size:10px;color:#78879b;margin-top:4px;line-height:1.4}
+.section-head{position:relative}
+.section-drag-handle{cursor:grab;color:#a0a9b5;font-size:12px;user-select:none;padding-right:3px}
+.section-head.section-dragging{opacity:.55}
+@media(max-width:980px){.template-stack{grid-template-columns:repeat(2,minmax(0,1fr))}.home-theme-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:650px){.template-stack,.home-theme-grid{grid-template-columns:1fr}.template-picker{padding:17px}.template-option .sample-paper-wrap{height:300px}.home-theme .sample-thumb{height:220px}.home-theme .sample-thumb .sample-paper{transform:scale(.2)}}
+.template-option-side{display:block}
+.template-option-side .template-person-badge{display:block;margin:5px 0 8px}
+.template-action-row{display:flex;gap:7px}
+.template-action-row button{flex:1!important;grid-column:auto!important;grid-row:auto!important;font-size:11px;padding:7px 6px;white-space:nowrap}
+.template-action-row .sample-open{background:#fff;color:#2e486e;border-color:#aebdd2}
+.start-card{min-width:0}
+.start-previews{min-width:0;overflow:hidden}
+.start-sample-preview{flex:1;min-width:0;overflow:hidden;text-align:center}
+.start-sample-preview .sample-thumb{height:210px;width:100%;overflow:hidden;background:#f0f2f1;border-radius:6px;margin:0 auto 8px;display:flex;justify-content:center;align-items:flex-start}
+.start-sample-preview .sample-thumb .sample-paper{transform:scale(.17);transform-origin:top center;flex:none}
+.start-sample-preview small{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:10px;color:#6c7b8f}
+.sample-paper.sample-folio .sample-columns{display:grid;grid-template-columns:1fr 1fr;gap:22px;border-top:1px solid #bdc9b9;padding-top:18px}
+.sample-paper.sample-folio .sample-primary{padding-right:16px;border-right:1px solid #d7dfd0}
+.sample-paper.sample-folio .sample-secondary{padding-left:16px}
+.template-picker{width:min(1480px,97vw);padding:18px}
+.template-picker h2{margin-bottom:9px}
+.template-picker>.hint{margin:0 0 10px}
+.template-stack{grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;max-height:78vh;padding:1px 1px 6px}
+.template-option{padding:8px;gap:7px;border-radius:9px}
+.template-option .sample-paper-wrap{height:238px;padding:6px}
+.template-option .sample-paper{transform:scale(.2);transform-origin:top center}
+.template-option-side h3{font-size:13px;margin:0 0 3px}
+.template-option-side p{font-size:10px;line-height:1.35;margin:0;color:#7c8796}
+.template-option-side .template-person-badge{font-size:9px;margin:4px 0 6px}
+.template-action-row{display:block}
+.template-action-row button{display:block;width:100%!important;font-size:11px;padding:7px 6px}
+.sample-avatar{overflow:hidden}
+.sample-avatar img{display:block;width:100%;height:100%;object-fit:cover;object-position:center top}
+.sample-paper.sample-classic .sample-head,.sample-paper.sample-academic .sample-head{text-align:left}
+.sample-paper.sample-classic .sample-avatar,.sample-paper.sample-academic .sample-avatar{display:grid}
+.start-sample-preview small{display:none}
+@media(max-width:1100px){.template-stack{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:800px){.template-stack{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:560px){.template-stack{grid-template-columns:1fr}.template-picker{padding:14px}.template-option .sample-paper-wrap{height:285px}.template-option .sample-paper{transform:scale(.235)}}
+.sample-paper.sample-folio .sample-columns .sample-section{margin:0 0 18px}
+.template-picker{width:min(1320px,92vw);padding:14px}
+.template-picker h2{margin-bottom:7px}
+.template-picker>.hint{margin:0 0 8px}
+.template-stack{gap:8px;max-height:76vh;padding:1px}
+.template-option{padding:7px;gap:6px}
+.template-option .sample-paper-wrap{height:240px;padding:4px}
+.template-option .sample-paper{height:850px;transform:scale(.28);transform-origin:top center}
+.template-option-side .template-person-badge{margin:3px 0 5px}
+.template-option-side h3{font-size:12px}
+.template-option-side p{font-size:9px}
+.template-action-row button{padding:6px;font-size:10px}
+@media(max-width:1100px){.template-stack{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(max-width:760px){.template-stack{grid-template-columns:repeat(2,minmax(0,1fr))}.template-option .sample-paper-wrap{height:220px}.template-option .sample-paper{height:920px;transform:scale(.22)}}
+@media(max-width:520px){.template-stack{grid-template-columns:1fr}.template-option .sample-paper-wrap{height:260px}.template-option .sample-paper{height:1000px;transform:scale(.26)}}
+
+/* v7: tighter template dialog, clearer card typography, compact start screen and
+   visible page-size control in the editor status bar. */
+.template-picker{width:min(1100px,88vw);max-height:84vh;padding:12px}
+.template-picker h2{font-size:20px;margin-bottom:5px;text-align:center}
+.template-picker>.hint{font-size:11px;text-align:center;margin:0 0 7px}
+.template-stack{gap:8px;max-height:71vh}
+.template-option{padding:7px;gap:6px}
+.template-option .sample-paper-wrap{height:215px;padding:4px}
+.template-option .sample-paper{height:900px;transform:scale(.27);transform-origin:top center}
+.template-option-side{text-align:center}
+.template-option-side h3{font-size:15px;line-height:1.3;margin:1px 0 3px}
+.template-option-side p{font-size:11px;line-height:1.45;margin:0 0 6px}
+.template-action-row{display:block}
+.template-action-row button{width:100%!important;font-size:12px;padding:7px 6px}
+.start-grid{width:min(940px,100%);gap:18px}
+.start-card{min-height:340px;padding:28px}
+.start-card h1{font-size:25px;margin-bottom:18px;text-align:center}
+.start-previews{flex:none;height:160px;margin:0 0 14px;gap:8px}
+.start-sample-preview .sample-thumb{height:160px}
+.start-card>.primary{padding:11px}
+.section{transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease}
+.section.section-dragging{opacity:.5;transform:scale(.985)}
+.section.section-drag-over{transform:translateY(-4px);box-shadow:0 8px 18px rgba(41,63,108,.16);border-color:#8fa9d1}
+.section-drag-handle{transition:color .15s ease,transform .15s ease}
+.section-drag-handle:active{cursor:grabbing;transform:scale(1.2)}
+.page-quick{display:flex;align-items:center;gap:6px;color:#747d8c}
+.page-quick select{padding:4px 7px;font-size:12px;color:#4e5e73;background:#fff}
+.page-quick #pageStatus{color:#747d8c}
+@media(max-width:760px){.template-picker{width:min(94vw,620px)}.template-option .sample-paper-wrap{height:210px}.template-option .sample-paper{transform:scale(.24)}.start-card{min-height:315px;padding:24px}.start-previews{height:145px}.start-sample-preview .sample-thumb{height:145px}}
+
+/* v8 interaction polish */
+.saved,#saveState,.local-badge{display:none!important}
+#projectHome{place-items:center;padding:28px}
+.start-shell{width:min(980px,100%);padding:0 0 18px}
+.welcome-copy{text-align:center;margin:0 auto 38px;max-width:760px}
+.welcome-copy .eyebrow{margin-bottom:8px}
+.welcome-copy h1{font-size:clamp(25px,3vw,34px);letter-spacing:-.7px;margin:0 0 9px;color:#263649}
+.welcome-copy p{margin:0;color:#7b8797;font-size:13px;line-height:1.8}
+.start-grid{width:100%;gap:18px}
+.start-card{min-height:320px;padding:27px}
+.start-card h1{font-size:22px;margin-bottom:17px}
+.start-card-tools{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:9px}
+.start-card-tools button{padding:8px 6px;font-size:11px;color:#3c5478}
+.start-sample-preview .sample-thumb{height:145px}
+
+/* The dialog itself never scrolls; only the template grid does. */
+dialog.template-picker{display:flex;flex-direction:column;overflow:hidden;box-sizing:border-box}
+dialog.template-picker h2,dialog.template-picker>.hint{flex:none}
+dialog.template-picker .template-stack{flex:1 1 auto;min-height:0;max-height:none;overflow-y:auto;overflow-x:hidden;align-content:start}
+dialog.template-picker>.dialog-actions{flex:none;padding-top:7px;margin-top:5px}
+dialog.template-picker .template-option .sample-paper{transform:scale(.29)}
+dialog.template-picker .template-option .sample-paper-wrap{height:224px}
+
+/* Make the modern split unmistakable in both the editor and its thumbnail. */
+.paper[data-theme=sidebar] .cv-sidebar-columns{display:grid!important;grid-template-columns:minmax(0,32%) minmax(0,1fr)!important;gap:7mm!important;align-items:start}
+.paper[data-theme=sidebar] .cv-sidebar-columns .cv-secondary{grid-column:1!important;grid-row:1!important;background:#edf2f4;border-right:1px solid #c9d8dc;padding:10px 11px;min-height:100%;}
+.paper[data-theme=sidebar] .cv-sidebar-columns .cv-primary{grid-column:2!important;grid-row:1!important;padding-left:1mm}
+.paper[data-theme=sidebar] .cv-sidebar-columns .cv-section{margin-top:0;margin-bottom:14px}
+.sample-paper.sample-sidebar .sample-sidebar-columns{display:grid;grid-template-columns:32% 1fr;gap:18px;border-top:1px solid #b9ccd0;padding-top:14px}
+.sample-paper.sample-sidebar .sample-sidebar-columns .sample-secondary{padding-right:12px;border-right:1px solid #c9d8dc}
+.sample-paper.sample-sidebar .sample-sidebar-columns .sample-primary{padding-left:2px}
+.sample-paper.sample-sidebar .sample-sidebar-columns .sample-section{margin:0 0 14px}
+
+/* Align the collapse arrow and drag handle to the same baseline. */
+.section-head{align-items:center!important;line-height:1.2}
+.section-head:before{display:inline-flex;align-items:center;justify-content:center;height:1.2em;line-height:1;flex:0 0 10px}
+.section-drag-handle{display:inline-flex;align-items:center;justify-content:center;height:1.2em;line-height:1;padding:0 2px!important;transform:none}
+.section-drag-handle:active{transform:scale(1.12)}
+
+/* Photo alignment is a segmented control with an obvious selected state. */
+#photoLeft,#photoRight{min-width:66px}
+#photoLeft.selected,#photoRight.selected{background:#293f6c;color:#fff;border-color:#293f6c;box-shadow:0 0 0 2px #dbe5f5}
+
+@media(max-width:760px){
+  #projectHome{place-items:center;padding:22px 16px}
+  .start-shell{padding:0 0 14px}
+  .start-grid{grid-template-columns:1fr}
+  .start-card{min-height:285px;padding:23px}
+  .welcome-copy h1{font-size:26px}
+}
+
+/* Sidebar preview and editor use the same soft green rail. */
+.paper[data-theme=sidebar] .cv-sidebar-columns .cv-secondary{background:#e8f2ee;border-right-color:#a8c5b8}
+.sample-paper.sample-sidebar .sample-sidebar-columns .sample-secondary{background:#e8f2ee;border-right-color:#a8c5b8}
+
+/* Keep the section controls visually ordered: collapse arrow, title, edit/add,
+   then the drag grip at the far right. */
+.section-head .section-drag-handle{order:10;flex:0 0 auto!important;margin-left:auto!important;padding-right:0!important}
+
+/* Three compact profile controls share one row; the old explanatory hint is
+   removed by the matching JS normalization. */
+.side-head{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.side-head>.row{grid-column:1/-1}
+.side-head>#profileBtn{grid-column:auto;width:100%;margin:0;text-align:center}
+.side-head>.panel-links{display:contents}
+.side-head>.panel-links button{width:100%;margin:0;font-size:12px}
+.side-head>#search{grid-column:1/-1;margin:4px 0 0}
+.side-head>#sideHint{grid-column:1/-1;margin:0}
+
+/* The ink card is meant to read as one continuous dark page, not a dark header
+   floating over a white sheet. */
+.paper[data-theme=ink]{background:#243448;color:#f3f7fb}
+.paper[data-theme=ink] .cv-header{background:#243448;color:#f3f7fb;border-bottom-color:#91a8bf}
+.paper[data-theme=ink] .cv-name,.paper[data-theme=ink] .cv-title{color:#f3f7fb}
+.paper[data-theme=ink] .cv-contact,.paper[data-theme=ink] .cv-role,.paper[data-theme=ink] .cv-date{color:#c7d3df}
+.paper[data-theme=ink] .cv-section h2{color:#dce8f2;border-bottom-color:#91a8bf}
+.paper[data-theme=ink] .cv-entry li{color:#e2eaf1}
+.paper[data-theme=ink] .editable:hover,.paper[data-theme=ink] .editable:focus{color:#f7fbff;background:#334b66;box-shadow:0 0 0 1px #8ca8c4}
+
+/* Close affordance and inline copy feedback stay above the dialog backdrop. */
+dialog{position:relative}
+.modal-close{position:absolute;top:8px;right:10px;z-index:3;border:0;background:transparent;color:#7d8898;font-size:25px;line-height:1;padding:2px 7px;border-radius:5px}
+.modal-close:hover{background:#eef2f7;color:#293f6c;border-color:transparent}
+.copy-ai-status{margin-right:auto;align-self:center;color:#3f865c;font-size:12px;min-height:1em}
+
+/* Course-selection controls in the grade library. */
+.simple-courses{width:min(820px,92vw)}
+.simple-courses .course-table th:first-child,.simple-courses .course-table td:first-child{width:82px;text-align:center}
+.simple-courses .course-table th:nth-child(2),.simple-courses .course-table td:nth-child(2){width:auto}
+.simple-courses .course-table th:nth-child(3),.simple-courses .course-table td:nth-child(3){width:92px;text-align:center}
+.simple-courses .course-table th:nth-child(4),.simple-courses .course-table td:nth-child(4){width:58px;text-align:center}
+.simple-courses .course-tools{justify-content:flex-start;gap:7px}
+.simple-courses .course-tools .course-count{margin-right:auto}
+.simple-courses .course-table input[type=checkbox]{width:16px;height:16px}
+@media(max-width:650px){.side-head{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.side-head>.panel-links button,.side-head>#profileBtn{font-size:11px;padding-left:5px;padding-right:5px}.simple-courses .course-tools button{font-size:11px;padding:7px 8px}}
