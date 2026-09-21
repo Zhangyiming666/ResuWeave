@@ -100,7 +100,7 @@ function v8ShowCourses(){
   ensureCourseFlags();
   const cfg=v().courses||(v().courses={...clone(courseDefaults),enabled:true,autoLink:true,selected:[]});
   cfg.selected=Array.isArray(cfg.selected)?cfg.selected:[];
-  openDialog(`<h2>成绩库</h2><p class="hint">维护课程名称、成绩，并选择当前版本使用的课程。</p><div class="row course-tools"><input id="courseSearch" placeholder="搜索课程" aria-label="搜索课程"><button id="newCourse">＋ 课程</button></div><div class="course-scroll"><table class="course-table"><thead><tr><th>选择课程</th><th>课程</th><th>成绩</th><th>显示成绩</th><th></th></tr></thead><tbody id="courseRows"></tbody></table></div><div class="row course-tools"><span class="course-count" id="courseCount"></span><button type="button" id="selectAllCourses">全选课程</button><button type="button" id="clearCourses">取消全选课程</button><button type="button" id="clearScoreDisplay">取消所有成绩显示</button></div><div class="dialog-actions"><button class="primary" data-close>完成</button></div>`);
+  openDialog(`<h2>成绩库</h2><p class="hint">维护课程名称、成绩，并选择当前版本使用的课程；不会修改原简历中的主修课程内容。</p><div class="row course-tools"><input id="courseSearch" placeholder="搜索课程" aria-label="搜索课程"><button id="newCourse">＋ 课程</button></div><div class="course-scroll"><table class="course-table"><thead><tr><th>选择课程</th><th>课程</th><th>成绩</th><th>显示成绩</th><th></th></tr></thead><tbody id="courseRows"></tbody></table></div><div class="row course-tools"><span class="course-count" id="courseCount"></span><button type="button" id="selectAllCourses">全选课程</button><button type="button" id="clearCourses">取消全选课程</button><button type="button" id="clearScoreDisplay">取消所有成绩显示</button></div><div class="dialog-actions"><button class="primary" data-close>完成</button></div>`);
   $('#editor').classList.add('simple-courses');
   $('#editor').addEventListener('close',()=>$('#editor').classList.remove('simple-courses'),{once:true});
   function rows(){
@@ -109,7 +109,7 @@ function v8ShowCourses(){
     $('#courseRows').innerHTML=list.map(c=>{
       const label=text(c.name)||c.name?.zh||'';
       const score=c.status==='graded'?c.score:c.status==='pass'?'通过':'待出分';
-      return `<tr><td><input type="checkbox" data-course-select="${esc(c.id)}" ${cfg.selected.includes(c.id)?'checked':''} aria-label="选择 ${esc(label)}"></td><td>${esc(label)}</td><td>${esc(score)}</td><td><input type="checkbox" data-course-score="${esc(c.id)}" ${c.showScore!==false?'checked':''} aria-label="显示 ${esc(label)} 成绩"></td><td><button class="mini" data-edit-course="${esc(c.id)}">编辑</button></td></tr>`;
+      return `<tr><td><input type="checkbox" data-course-select="${esc(c.id)}" ${cfg.selected.includes(c.id)?'checked':''} aria-label="选择 ${esc(label)}"></td><td>${esc(label)}</td><td>${esc(score)}</td><td><input type="checkbox" data-course-score="${esc(c.id)}" ${c.showScore!==false?'checked':''} aria-label="显示 ${esc(label)} 成绩"></td><td><button class="mini" data-edit-course="${esc(c.id)}">编辑</button> <button class="mini" data-delete-course="${esc(c.id)}">删除</button></td></tr>`;
     }).join('');
     $('#courseCount').textContent=`已选择 ${cfg.selected.length} / ${state.courses.length} 门`;
     $$('[data-course-select]').forEach(input=>input.onchange=()=>{
@@ -120,6 +120,12 @@ function v8ShowCourses(){
       change(()=>course.showScore=input.checked);rows();
     });
     $$('[data-edit-course]').forEach(button=>button.onclick=()=>editCourse(button.dataset.editCourse));
+    $$('[data-delete-course]').forEach(button=>button.onclick=()=>{
+      const course=state.courses.find(c=>c.id===button.dataset.deleteCourse);if(!course)return;
+      const label=text(course.name)||course.name?.zh||'这门课程';
+      if(!confirm(`确定删除“${label}”吗？`))return;
+      change(()=>{state.courses=state.courses.filter(c=>c.id!==course.id);state.versions.forEach(version=>{if(version.courses?.selected)version.courses.selected=version.courses.selected.filter(id=>id!==course.id)})});rows();
+    });
   }
   $('#courseSearch').oninput=rows;
   $('#newCourse').onclick=()=>editCourse();
