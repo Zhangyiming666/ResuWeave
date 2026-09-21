@@ -1,6 +1,6 @@
-# 简历编辑器
+# ResuWeave
 
-纯静态网页，无需后端或构建。将本目录的 `index.html`、`.nojekyll` 和 `assets` 文件夹一起放到 GitHub Pages 的发布目录即可。此文件夹不包含私人简历。
+ResuWeave 是一个本地优先的简历工作台：纯静态网页，无需后端或构建。将本目录的 `index.html`、`.nojekyll` 和 `assets` 文件夹一起放到 GitHub Pages 的发布目录即可。此文件夹不包含私人简历。
 
 ## 使用
 
@@ -14,6 +14,10 @@
 ## 隐私与保存
 
 内容仅保存在浏览器与用户下载的项目文件中，不上传至服务器。浏览器缓存可能被清除，请定期保存项目文件。GitHub Pages 与原本地 HTML 使用不同的存储空间，发布后第一次使用需要导入项目文件。
+
+## GitHub Pages
+
+仓库：[Zhangyiming666/ResuWeave](https://github.com/Zhangyiming666/ResuWeave)。发布地址：[zhangyiming666.github.io/ResuWeave](https://zhangyiming666.github.io/ResuWeave/)。Pages 使用 `main` 分支根目录部署。
 
 不要将私人 `.resume.json`、含个人信息的导出 HTML/PDF、工作目录或整个 `outputs` 文件夹一起上传。只发布本 `site` 目录。
 
