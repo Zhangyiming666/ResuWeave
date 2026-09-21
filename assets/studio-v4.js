@@ -5,7 +5,7 @@ function pageConfig(){const c=v().style.page||{kind:'A4',width:210,height:297};c
 function bodyWidth(){return pageConfig().width-2*v().style.margin;}
 function boundPhoto(f){f.width=clamp(f.width,12,Math.min(70,bodyWidth()));f.height=clamp(f.height,16,90);f.x=clamp(f.x,0,Math.max(0,bodyWidth()-f.width));f.y=clamp(f.y,0,70);f.scale=clamp(f.scale,1,5);return f;}
 renderHome=function(){
- document.body.dataset.mode='home';document.title='简历';
+ document.body.dataset.mode='home';document.title='ResuWeave';
  $('#projectHome').innerHTML=`<div class="start-grid"><section class="start-card"><h1>打开现有简历</h1><div class="drop-target" id="openResume" role="button" tabindex="0" aria-label="打开简历项目文件"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 15V9h13l5 6h16v25H7z"/><path d="M7 20h34"/></svg><span>选择文件，或拖到这里</span><small>.resume.json</small></div></section><section class="start-card"><h1>从模板开始创建</h1><div class="start-previews">${['blue','sidebar','ink'].map(id=>{const t=THEMES.find(t=>t.id===id);return`<div class="template-preview preview-${t.id}" style="--swatch:${t.color}"><b></b><i></i><i></i><i></i><i></i><i></i><i></i></div>`}).join('')}</div><button class="primary" id="chooseTemplate">选择模板 →</button></section></div>`;
  const drop=$('#openResume');drop.onclick=()=>openExisting();drop.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();openExisting()}};drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag-over')};drop.ondragleave=()=>drop.classList.remove('drag-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag-over');if(e.dataTransfer.files[0])importResume(e.dataTransfer.files[0])};$('#chooseTemplate').onclick=chooseTemplate;
 };
@@ -133,7 +133,7 @@ $('#courseBtn').onclick=()=>showCourses();
 
 /* The public start screen intentionally stays minimal: exactly two entry points. */
 function v6SimpleHome(){
- document.body.dataset.mode='home';document.title='简历';
+ document.body.dataset.mode='home';document.title='ResuWeave';
  $('#projectHome').innerHTML=`<div class="start-grid"><section class="start-card"><h1>打开已有文件</h1><div class="drop-target" id="openResume" role="button" tabindex="0" aria-label="打开简历项目文件"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 15V9h13l5 6h16v25H7z"/><path d="M7 20h34"/></svg><span>选择项目文件，或拖到这里</span><small>.resume.json · 仅支持可继续编辑的项目文件</small></div></section><section class="start-card"><h1>创建新文件</h1><div class="start-previews">${['blue','classic','sidebar'].map((id,i)=>{const t=THEMES.find(t=>t.id===id),s=v6SampleForTheme(i);return`<div class="start-sample-preview"><div class="sample-thumb">${v6SamplePreview(t,s)}</div></div>`}).join('')}</div><button class="primary" id="chooseTemplate">从模板开始创建 →</button></section></div>`;
  const drop=$('#openResume');drop.onclick=()=>openExisting();drop.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();openExisting()}};drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag-over')};drop.ondragleave=()=>drop.classList.remove('drag-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag-over');if(e.dataTransfer.files[0])importResume(e.dataTransfer.files[0])};$('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();
 }
@@ -484,7 +484,7 @@ $('#backToProjects').onclick=goHome;
 /* Replace the final v4 start screen with a compact, welcoming two-choice
    surface.  Import remains a local .resume.json file picker. */
 v6SimpleHome=function(){
-  document.body.dataset.mode='home';document.title='简历';
+  document.body.dataset.mode='home';document.title='ResuWeave';
   $('#projectHome').innerHTML=`<div class="start-shell"><div class="welcome-copy"><h1>欢迎！开始整理你的简历吧</h1></div><div class="start-grid"><section class="start-card"><h1>打开已有文件</h1><div class="drop-target" id="openResume" role="button" tabindex="0" aria-label="打开简历项目文件"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 15V9h13l5 6h16v25H7z"/><path d="M7 20h34"/></svg><span>选择项目文件，或拖到这里</span><small>.resume.json · 继续编辑</small></div></section><section class="start-card"><h1>从已有模板创建</h1><div class="start-previews">${['blue','classic','sidebar'].map((id,i)=>{const t=THEMES.find(t=>t.id===id),s=v6SampleForTheme(i);return`<div class="start-sample-preview"><div class="sample-thumb">${v6SamplePreview(t,s)}</div></div>`}).join('')}</div><button class="primary" id="chooseTemplate">选择模板 →</button><div class="start-card-tools"><button type="button" id="downloadAiSample">下载 AI 填写样例</button><button type="button" id="importJson">导入 JSON</button></div></section></div></div>`;
   const drop=$('#openResume');drop.onclick=()=>openExisting();drop.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();openExisting()}};drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag-over')};drop.ondragleave=()=>drop.classList.remove('drag-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag-over');if(e.dataTransfer.files[0])importResume(e.dataTransfer.files[0])};
   $('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();$('#downloadAiSample').onclick=v8ShowAiTemplate;$('#importJson').onclick=()=>openExisting();
