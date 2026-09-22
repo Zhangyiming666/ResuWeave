@@ -432,6 +432,16 @@ dialog{position:relative}
 .modal-close{position:absolute;top:8px;right:10px;z-index:3;border:0;background:transparent;color:#7d8898;font-size:25px;line-height:1;padding:2px 7px;border-radius:5px}
 .modal-close:hover{background:#eef2f7;color:#293f6c;border-color:transparent}
 .copy-ai-status{margin-right:auto;align-self:center;color:#3f865c;font-size:12px;min-height:1em}
+.guide-dialog{line-height:1.65}
+.guide-dialog>p{color:#647185;margin:10px 0 18px}
+.guide-options{display:grid;gap:10px}
+.guide-options>div{border:1px solid #dce3ed;border-radius:9px;padding:12px 14px;background:#f8fafd}
+.guide-options strong,.guide-options span{display:block}
+.guide-options span{color:#647185;font-size:13px;margin-top:3px}
+.guide-dialog .guide-note{font-size:12px;margin:16px 0 0}
+.guide-dialog .dialog-actions{align-items:center;justify-content:space-between}
+.guide-dialog a{color:#293f6c;text-decoration:none}
+.guide-dialog a:hover{text-decoration:underline}
 
 /* Course-selection controls in the grade library. */
 .simple-courses{width:min(820px,92vw)}
@@ -940,9 +950,27 @@ $('#backToProjects').onclick=goHome;
 v6SimpleHome=function(){
   document.body.dataset.mode='home';document.title='ResuWeave';
   $('#projectHome').innerHTML=`<div class="start-shell"><div class="welcome-copy"><h1>欢迎！开始整理你的简历吧</h1></div><div class="start-grid"><section class="start-card"><h1>打开已有文件</h1><div class="drop-target" id="openResume" role="button" tabindex="0" aria-label="打开简历项目文件"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 15V9h13l5 6h16v25H7z"/><path d="M7 20h34"/></svg><span>选择项目文件，或拖到这里</span><small>.resume.json · 继续编辑</small></div></section><section class="start-card"><h1>从已有模板创建</h1><div class="start-previews">${['blue','classic','sidebar'].map((id,i)=>{const t=THEMES.find(t=>t.id===id),s=v6SampleForTheme(i);return`<div class="start-sample-preview"><div class="sample-thumb">${v6SamplePreview(t,s)}</div></div>`}).join('')}</div><button class="primary" id="chooseTemplate">选择模板 →</button><div class="start-card-tools"><button type="button" id="downloadAiSample">下载 AI 填写样例</button><button type="button" id="importJson">导入 JSON</button></div></section></div></div>`;
+  $('.welcome-copy').insertAdjacentHTML('beforeend','<button type="button" id="openGuide" aria-haspopup="dialog">使用说明</button>');
   const drop=$('#openResume');drop.onclick=()=>openExisting();drop.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();openExisting()}};drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag-over')};drop.ondragleave=()=>drop.classList.remove('drag-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag-over');if(e.dataTransfer.files[0])importResume(e.dataTransfer.files[0])};
-  $('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();$('#downloadAiSample').onclick=v8ShowAiTemplate;$('#importJson').onclick=()=>openExisting();
+  $('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();$('#downloadAiSample').onclick=v8ShowAiTemplate;$('#importJson').onclick=()=>openExisting();$('#openGuide').onclick=v9ShowGuide;
+  v9ShowGuideOnce();
 };
+const v9GuideKey='resuweave-guide-seen-v1';
+let v9GuideShownThisSession=false;
+function v9ShowGuide(){
+  openDialog(`<div class="guide-dialog"><h2>欢迎使用 ResuWeave</h2><p>长期维护一份完整的经历底稿，再为不同申请目标组合简历版本。</p><div class="guide-options"><div><strong>打开现有项目</strong><span>导入之前保存的 .resume.json，接着编辑。</span></div><div><strong>从模板开始</strong><span>选择一份示例，替换个人信息和经历内容。</span></div><div><strong>用 AI 整理</strong><span>下载样例 JSON，把它、提示词和已有简历交给你常用的 AI，再导入结果。</span></div></div><p class="guide-note">简历在本地编辑；请定期下载项目文件备份。PDF、PNG、HTML 用于投递，.resume.json 用于继续编辑。</p><div class="dialog-actions"><a href="https://github.com/Zhangyiming666/ResuWeave#readme" target="_blank" rel="noopener noreferrer">阅读完整说明 ↗</a><button type="button" class="primary" data-close>开始使用</button></div></div>`);
+}
+function v9ShowGuideOnce(){
+  if(v9GuideShownThisSession)return;
+  let seen=false;try{seen=localStorage.getItem(v9GuideKey)==='1'}catch(e){}
+  if(seen)return;
+  queueMicrotask(()=>{
+    const dialog=$('#editor');if(v9GuideShownThisSession||document.body.dataset.mode!=='home'||dialog.open)return;
+    v9GuideShownThisSession=true;
+    v9ShowGuide();
+    dialog.addEventListener('close',()=>{try{localStorage.setItem(v9GuideKey,'1')}catch(e){}},{once:true});
+  });
+}
 renderHome=v6SimpleHome;
 if(projectDB)renderHome();
 
