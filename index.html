@@ -1048,7 +1048,7 @@ function v9RenderMarkdown(source){
 }
 function v9ShowReadme(){
   const source=$('#projectReadmeMarkdown').content.textContent;
-  openDialog(`<div class="readme-content">${v9RenderMarkdown(source)}</div><div class="dialog-actions"><button type="button" class="primary" data-close>关闭</button></div>`);
+  openDialog(`<div class="readme-content">${v9RenderMarkdown(source)}</div>`);
   const dialog=$('#editor');dialog.classList.add('readme-dialog');dialog.addEventListener('close',()=>dialog.classList.remove('readme-dialog'),{once:true});
 }
 renderHome=v6SimpleHome;
