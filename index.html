@@ -58,12 +58,18 @@ $('#versionSelect').onchange=e=>change(()=>state.active=e.target.value);$('#newV
 /* Additive upgrade: retain the original storage key, all profile fields and edited entries. */
 const COURSE_SEED=[];
 const THEMES=[{id:'blue',name:'蓝色简洁',desc:'细线分隔 · 通用投递',color:'#293f6c'},{id:'classic',name:'黑白经典',desc:'衬线字体 · 居中抬头',color:'#242424'},{id:'academic',name:'居中学术',desc:'灰底标题 · 清晰层级',color:'#34465e'},{id:'sidebar',name:'现代分栏',desc:'教育技能侧栏 · 经历主栏',color:'#325663'},{id:'editorial',name:'暖色编辑',desc:'暖棕线条 · 杂志式标题',color:'#9a5b3b'}];
-const photoDefaults={x:149,y:0,width:25,height:32,scale:1,focusX:.5,focusY:.5,ratio:.78125,radius:0};
+const photoDefaults={x:153,y:0,width:25,height:32,scale:1,focusX:.5,focusY:.5,ratio:.78125,radius:0};
 const courseDefaults={enabled:false,showScores:false,showCredits:false,selected:['BACC011','BACC012','BSTA011','BMKT011','BMGT011'],educationId:'edu'};
 let folded=new Set(['education','skills']),photoMode='move';
 function migrateV2(){
  if(!state.courses)state.courses=[];if(!state.upgrades)state.upgrades={};
- state.versions.forEach(w=>{if(!w.courses)w.courses={...clone(courseDefaults),selected:[]};for(const[k,value]of Object.entries(courseDefaults))if(w.courses[k]===undefined)w.courses[k]=clone(value);w.style.template=w.style.template||'blue';if(!w.style.photoLayout)w.style.photoLayout=clone(photoDefaults);for(const[k,value]of Object.entries(photoDefaults))if(w.style.photoLayout[k]===undefined)w.style.photoLayout[k]=value;});
+ state.versions.forEach(w=>{if(!w.courses)w.courses={...clone(courseDefaults),selected:[]};for(const[k,value]of Object.entries(courseDefaults))if(w.courses[k]===undefined)w.courses[k]=clone(value);w.style.template=w.style.template||'blue';if(!w.style.photoLayout)w.style.photoLayout=clone(photoDefaults);for(const[k,value]of Object.entries(photoDefaults))if(w.style.photoLayout[k]===undefined)w.style.photoLayout[k]=value;
+   /* Built-in character samples used the old 4 mm right inset. Move only
+      that untouched default layout to the body guide; custom photo positions
+      remain exactly as the user placed them. */
+   const f=w.style.photoLayout,pageWidth=w.style.page?.width||210,margin=w.style.margin??16;
+   if(state.sampleId&&f.x===149&&f.y===0&&f.width===25&&f.height===32)f.x=Math.max(0,pageWidth-2*margin-f.width);
+ });
 }
 const oldRender=render,oldRenderSidebar=renderSidebar,oldRenderPaper=renderPaper,oldSave=save;
 save=function(){migrateV2();oldSave()};
@@ -417,11 +423,21 @@ dialog.template-picker .template-option .sample-paper-wrap{height:224px}
 .side-head>#search{grid-column:1/-1;margin:4px 0 0}
 .side-head>#sideHint{grid-column:1/-1;margin:0}
 
-/* Ink card: only the personal-information header is dark; the resume body stays white. */
+/* Ink card: only the personal-information header is dark; the resume body stays white.
+   The header background bleeds through the paper padding while its contents keep
+   the normal text alignment. */
 .paper[data-theme=ink]{background:#fff;color:#222d40}
-.paper[data-theme=ink] .cv-header{background:#243448;color:#f3f7fb}
+.paper[data-theme=ink] .cv-header{position:relative;z-index:0;background:transparent;color:#f3f7fb}
+.paper[data-theme=ink] .cv-header::before{content:'';position:absolute;z-index:-1;top:calc(-1 * var(--page-margin-y,15mm));right:calc(-1 * var(--page-margin-x,16mm));bottom:0;left:calc(-1 * var(--page-margin-x,16mm));background:#243448}
+.paper[data-theme=ink] .cv-header>*:not(.photo-box){position:relative;z-index:1}
+.paper[data-theme=ink] .cv-header>.photo-box{position:absolute;z-index:2}
 .paper[data-theme=ink] .cv-name,.paper[data-theme=ink] .cv-title{color:#f3f7fb}
 .paper[data-theme=ink] .cv-contact{color:#c7d3df}
+/* Keep the ink-card header content on the same horizontal guides as the
+   white resume body. The dark background still bleeds through the page
+   margins, while text and photo align with the body copy below. */
+.paper[data-theme=ink] .cv-header{padding-left:0;padding-right:0}
+.paper[data-theme=ink] .cv-header.has-photo{padding-right:var(--photo-reserve,0mm)}
 
 /* Close affordance and inline copy feedback stay above the dialog backdrop. */
 dialog{position:relative}
@@ -803,7 +819,7 @@ const v6SampleText=x=>typeof x==='object'?(x?.zh||x?.en||''):String(x??'');
 const v6SampleEntry=d=>entry(d.id,d.section,d.title,d.role,d.date,d.bullets.map((b)=>bi(b[0],b[1])));
 function v6SampleWorkspace(sample,theme){
  const entries=sample.entries.map(v6SampleEntry),education=entries.find(e=>e.section==='education');
- const version=makeVersion(sample.name.zh+'版');version.order=entries.map(e=>e.id);version.hidden=[];version.hiddenBullets=[];version.overrides={};version.sectionNames={};version.profile={};version.style.template=theme.id;version.style.accent=theme.color;version.style.photo=Boolean(sample.photo);version.style.page={kind:'A4',width:210,height:297};version.style.photoLayout=clone(photoDefaults);version.style.photoLayout.x=149;version.courses={...clone(courseDefaults),enabled:false,autoLink:true,selected:[],educationId:education?.id||''};
+ const version=makeVersion(sample.name.zh+'版');version.order=entries.map(e=>e.id);version.hidden=[];version.hiddenBullets=[];version.overrides={};version.sectionNames={};version.profile={};version.style.template=theme.id;version.style.accent=theme.color;version.style.photo=Boolean(sample.photo);version.style.page={kind:'A4',width:210,height:297};version.style.photoLayout=clone(photoDefaults);version.style.photoLayout.x=version.style.page.width-2*version.style.margin-version.style.photoLayout.width;version.courses={...clone(courseDefaults),enabled:false,autoLink:true,selected:[],educationId:education?.id||''};
  return{schema:1,workspaceKind:'sample',sampleId:sample.id,entries,sections:clone(defaultState.sections),profile:{name:sample.name,headline:sample.headline,phone:'',email:sample.email,location:sample.location,photo:sample.photo||''},versions:[version],active:version.id,courses:[],upgrades:{sampleBikiniBottom:true,contentOptimized:true}};
 }
 function v6PreviewEntries(sample){return sample.entries.filter(e=>e.section!=='skills').slice(0,3)}
@@ -1134,8 +1150,10 @@ renderStyles=function(){
 };
 const marginRenderPaperBase=renderPaper;
 renderPaper=function(){
-  marginRenderPaperBase();
+marginRenderPaperBase();
   const vertical=(v().style.marginVertical??15)+'mm',paper=$('#paper');
+  paper.style.setProperty('--page-margin-x',(v().style.margin??16)+'mm');
+  paper.style.setProperty('--page-margin-y',vertical);
   paper.style.paddingTop=vertical;
   paper.style.paddingBottom=vertical;
   requestAnimationFrame(measure);
