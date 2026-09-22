@@ -417,15 +417,11 @@ dialog.template-picker .template-option .sample-paper-wrap{height:224px}
 .side-head>#search{grid-column:1/-1;margin:4px 0 0}
 .side-head>#sideHint{grid-column:1/-1;margin:0}
 
-/* The ink card is meant to read as one continuous dark page, not a dark header
-   floating over a white sheet. */
-.paper[data-theme=ink]{background:#243448;color:#f3f7fb}
-.paper[data-theme=ink] .cv-header{background:#243448;color:#f3f7fb;border-bottom-color:#91a8bf}
+/* Ink card: only the personal-information header is dark; the resume body stays white. */
+.paper[data-theme=ink]{background:#fff;color:#222d40}
+.paper[data-theme=ink] .cv-header{background:#243448;color:#f3f7fb}
 .paper[data-theme=ink] .cv-name,.paper[data-theme=ink] .cv-title{color:#f3f7fb}
-.paper[data-theme=ink] .cv-contact,.paper[data-theme=ink] .cv-role,.paper[data-theme=ink] .cv-date{color:#c7d3df}
-.paper[data-theme=ink] .cv-section h2{color:#dce8f2;border-bottom-color:#91a8bf}
-.paper[data-theme=ink] .cv-entry li{color:#e2eaf1}
-.paper[data-theme=ink] .editable:hover,.paper[data-theme=ink] .editable:focus{color:#f7fbff;background:#334b66;box-shadow:0 0 0 1px #8ca8c4}
+.paper[data-theme=ink] .cv-contact{color:#c7d3df}
 
 /* Close affordance and inline copy feedback stay above the dialog backdrop. */
 dialog{position:relative}
