@@ -451,6 +451,68 @@ dialog{position:relative}
 .simple-courses .course-tools .course-count{margin-right:auto}
 .simple-courses .course-table input[type=checkbox]{width:16px;height:16px}
 @media(max-width:650px){.side-head{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.side-head>.panel-links button,.side-head>#profileBtn{font-size:11px;padding-left:5px;padding-right:5px}.simple-courses .course-tools button{font-size:11px;padding:7px 8px}}
+
+/* Mobile workspace: edit and A-series page preview are separate, reachable views. */
+.mobile-panel-nav{display:none}
+@media screen and (max-width:700px){
+  html,body{max-width:100%;overflow-x:hidden}
+  body[data-mode=home] #projectHome{min-height:100dvh;padding:34px 16px;align-items:center}
+  .start-shell{width:100%;max-width:460px;padding:0 0 12px}
+  .welcome-copy{margin-bottom:28px}
+  .welcome-copy h1{font-size:clamp(23px,7vw,30px);line-height:1.35}
+  .start-grid{grid-template-columns:1fr;gap:14px}
+  .start-card{min-height:0;padding:20px;border-radius:12px}
+  .start-card h1{font-size:19px;margin-bottom:14px}
+  .drop-target{min-height:150px;gap:9px;text-align:center;padding:16px}
+  .start-previews{height:125px;margin-bottom:12px}
+  .start-sample-preview .sample-thumb{height:125px}
+  .start-card-tools button{min-height:44px;font-size:12px}
+  .readme-entry{margin-top:16px}
+  body[data-mode=editing]{display:flex;flex-direction:column;height:100dvh;overflow:hidden}
+  body[data-mode=editing]>header{height:auto;min-height:0;flex:none;display:block;padding:8px 12px}
+  .project-identity{height:32px;gap:7px}
+  .project-identity .back-projects{white-space:nowrap;padding:5px 3px;font-size:12px}
+  .project-identity #projectName{max-width:calc(100vw - 130px);font-size:12px}
+  .project-header-actions{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;padding:5px 0 2px}
+  .project-header-actions button{min-width:0;min-height:40px;padding:6px 4px;font-size:11px;line-height:1.25;white-space:normal}
+  .project-header-actions .top-base-actions{grid-column:span 2;display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr));min-width:0;gap:6px}
+  .project-header-actions #backupBtn{grid-column:span 2}
+  body[data-mode=editing] .workspace{flex:1;height:auto;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+  body[data-mode=home] .mobile-panel-nav{display:none}
+  .mobile-panel-nav{display:flex;flex:none;gap:8px;padding:8px 12px;background:#fff;border-bottom:1px solid var(--border)}
+  .mobile-panel-nav button{flex:1;min-height:40px;font-weight:600}
+  .mobile-panel-nav button[aria-selected=true]{background:var(--navy);border-color:var(--navy);color:#fff}
+  body[data-mobile-panel=edit] .workspace>.main,body[data-mobile-panel=preview] .workspace>aside{display:none}
+  .workspace>aside,.workspace>.main{flex:1;min-height:0;height:auto;max-height:none;width:100%;overflow:hidden}
+  .workspace>aside{border-right:0}
+  .tabs button{min-height:42px;padding:10px 18px}
+  .side-head{padding:10px 12px 6px}
+  .library{padding:0 12px 22px;overscroll-behavior:contain}
+  .toolbar{flex:none;padding:8px 12px;gap:6px}
+  .toolbar>.row:last-child{margin-left:auto}
+  .toolbar #zoom{max-width:100px;padding:6px}
+  #canvas{min-height:0;overflow:auto;padding:10px 12px 24px;overscroll-behavior:contain}
+  .paper-wrap{margin:0 auto}
+  .status{flex:none;gap:8px;flex-wrap:wrap;padding:8px 12px;font-size:11px}
+  dialog:not(.template-picker){width:calc(100vw - 24px);max-width:none;max-height:calc(100dvh - 24px);padding:22px 16px;overflow-y:auto}
+  dialog .form-grid{grid-template-columns:1fr}
+  dialog .form-grid .field{grid-column:1/-1}
+  dialog .dialog-actions{flex-wrap:wrap}
+  dialog .dialog-actions button{min-height:42px}
+  dialog.template-picker{width:calc(100vw - 20px);max-width:none;max-height:calc(100dvh - 20px);padding:16px 10px}
+  dialog.template-picker .template-stack{grid-template-columns:1fr;overscroll-behavior:contain}
+  dialog.template-picker .template-option .sample-paper-wrap{height:255px}
+  dialog.template-picker .template-option .sample-paper{transform:scale(.25)}
+  .simple-courses .course-scroll{max-height:42dvh;overflow:auto}
+  .simple-courses .course-table{min-width:510px}
+  .simple-courses .course-tools{gap:6px}
+  .simple-courses .course-tools .course-count{width:100%}
+  .crop-workspace{grid-template-columns:1fr}
+  #editor.readme-dialog{padding:23px 16px}
+  .readme-dialog .readme-content{max-height:calc(100dvh - 70px)}
+  .toast{bottom:max(16px,env(safe-area-inset-bottom));width:max-content;max-width:calc(100vw - 24px);text-align:center}
+}
+@media print{.mobile-panel-nav{display:none!important}}
 </style>
 <template id="projectReadmeMarkdown">
 # ResuWeave
@@ -1049,6 +1111,75 @@ function v9ShowReadme(){
 }
 renderHome=v6SimpleHome;
 if(projectDB)renderHome();
+
+/* Project files keep margins in millimetres; the controls use typographic
+   points, so existing horizontal margins do not change on import. */
+const marginMmToPt=mm=>Math.round(mm*72/25.4),marginPtToMm=pt=>Math.round(pt*25.4/72*100)/100;
+const marginRenderStylesBase=renderStyles;
+renderStyles=function(){
+  marginRenderStylesBase();
+  const style=v().style,oldMargin=$('#marginSetting'),controls=document.createElement('div');
+  controls.className='page-fields';
+  controls.innerHTML=`<label class="field">左右边距（磅）<input id="marginHorizontal" type="number" min="4" max="100" step="1" value="${marginMmToPt(style.margin??16)}"></label><label class="field">上下边距（磅）<input id="marginVertical" type="number" min="4" max="100" step="1" value="${marginMmToPt(style.marginVertical??15)}"></label>`;
+  oldMargin.closest('label').replaceWith(controls);
+  for(const [id,key] of [['marginHorizontal','margin'],['marginVertical','marginVertical']]){
+    $('#'+id).onchange=event=>{
+      const points=clamp(event.target.value,4,100);
+      change(()=>{v().style[key]=marginPtToMm(points);boundPhoto(v().style.photoLayout)});
+    };
+  }
+  $('#resetStyle').onclick=()=>change(()=>{
+    v().style={...style,font:12,line:1.55,margin:16,marginVertical:15,accent:(THEMES.find(t=>t.id===style.template)||THEMES[0]).color};
+  });
+};
+const marginRenderPaperBase=renderPaper;
+renderPaper=function(){
+  marginRenderPaperBase();
+  const vertical=(v().style.marginVertical??15)+'mm',paper=$('#paper');
+  paper.style.paddingTop=vertical;
+  paper.style.paddingBottom=vertical;
+  requestAnimationFrame(measure);
+};
+
+/* On phones, keep the editor usable at full width and fit the actual page
+   without changing its printable dimensions or the desktop zoom preference. */
+const mobilePanelNav=document.createElement('nav');
+mobilePanelNav.className='mobile-panel-nav';
+mobilePanelNav.setAttribute('aria-label','手机工作区视图');
+mobilePanelNav.innerHTML='<button type="button" data-mobile-view="edit" aria-selected="true">编辑内容</button><button type="button" data-mobile-view="preview" aria-selected="false">简历预览</button>';
+$('.workspace').prepend(mobilePanelNav);
+document.body.dataset.mobilePanel='edit';
+const mobileBreakpoint=window.matchMedia('(max-width:700px)');
+const zoomControl=$('#zoom'),fitZoomOption=document.createElement('option');
+fitZoomOption.textContent='适应屏幕';fitZoomOption.value='.4';zoomControl.prepend(fitZoomOption);
+let desktopZoom=zoomControl.value,mobileFitActive=false;
+zoomControl.addEventListener('change',()=>{
+  if(zoomControl.selectedIndex!==0){desktopZoom=zoomControl.value;mobileFitActive=false}
+});
+function fitMobilePaper(){
+  if(!mobileBreakpoint.matches||document.body.dataset.mode!=='editing'||document.body.dataset.mobilePanel!=='preview')return;
+  const paper=$('#paper');
+  const pageWidth=paper.offsetWidth||pageConfig().width*96/25.4;
+  fitZoomOption.value=String(Math.min(1,(window.innerWidth-24)/pageWidth));
+  zoomControl.value=fitZoomOption.value;
+  mobileFitActive=true;
+  renderPaper();
+}
+function setMobilePanel(panel){
+  document.body.dataset.mobilePanel=panel;
+  mobilePanelNav.querySelectorAll('button').forEach(button=>button.setAttribute('aria-selected',String(button.dataset.mobileView===panel)));
+  if(panel==='preview')requestAnimationFrame(fitMobilePaper);
+}
+mobilePanelNav.querySelectorAll('button').forEach(button=>button.onclick=()=>setMobilePanel(button.dataset.mobileView));
+const mobileShowProjectBase=showProject;
+showProject=async function(id){
+  await mobileShowProjectBase(id);
+  if(document.body.dataset.mode==='editing')setMobilePanel('edit');
+};
+window.addEventListener('resize',()=>{
+  if(!mobileBreakpoint.matches&&mobileFitActive){mobileFitActive=false;zoomControl.value=desktopZoom;if(document.body.dataset.mode==='editing')renderPaper()}
+  else if(mobileFitActive&&document.body.dataset.mobilePanel==='preview')requestAnimationFrame(fitMobilePaper);
+});
 
 </script>
 <!-- v4:end -->
