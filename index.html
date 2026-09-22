@@ -432,16 +432,18 @@ dialog{position:relative}
 .modal-close{position:absolute;top:8px;right:10px;z-index:3;border:0;background:transparent;color:#7d8898;font-size:25px;line-height:1;padding:2px 7px;border-radius:5px}
 .modal-close:hover{background:#eef2f7;color:#293f6c;border-color:transparent}
 .copy-ai-status{margin-right:auto;align-self:center;color:#3f865c;font-size:12px;min-height:1em}
-.guide-dialog{line-height:1.65}
-.guide-dialog>p{color:#647185;margin:10px 0 18px}
-.guide-options{display:grid;gap:10px}
-.guide-options>div{border:1px solid #dce3ed;border-radius:9px;padding:12px 14px;background:#f8fafd}
-.guide-options strong,.guide-options span{display:block}
-.guide-options span{color:#647185;font-size:13px;margin-top:3px}
-.guide-dialog .guide-note{font-size:12px;margin:16px 0 0}
-.guide-dialog .dialog-actions{align-items:center;justify-content:space-between}
-.guide-dialog a{color:#293f6c;text-decoration:none}
-.guide-dialog a:hover{text-decoration:underline}
+.readme-entry{text-align:center;margin:18px 0 0}
+.readme-entry button{border:0;background:transparent;color:#53688a;font-size:13px;text-decoration:underline;text-underline-offset:3px}
+.readme-entry button:hover{background:transparent;color:#293f6c}
+#editor.readme-dialog{width:min(800px,94vw);padding:28px 32px}
+.readme-dialog .readme-content{max-height:calc(90vh - 120px);overflow:auto;padding-right:12px;line-height:1.8;font-size:14px}
+.readme-content h1{font-size:27px;margin:0 0 12px}
+.readme-content h2{font-size:20px;margin:28px 0 10px}
+.readme-content h3{font-size:16px;margin:18px 0 8px}
+.readme-content p{margin:0 0 13px}
+.readme-content hr{border:0;border-top:1px solid #e0e5ed;margin:22px 0}
+.readme-content code{background:#f2f5f9;border-radius:4px;padding:2px 5px;font-size:.92em}
+@media(max-width:650px){#editor.readme-dialog{padding:22px 18px}.readme-dialog .readme-content{padding-right:5px}}
 
 /* Course-selection controls in the grade library. */
 .simple-courses{width:min(820px,92vw)}
@@ -454,6 +456,83 @@ dialog{position:relative}
 .simple-courses .course-table input[type=checkbox]{width:16px;height:16px}
 @media(max-width:650px){.side-head{grid-template-columns:repeat(3,minmax(0,1fr));gap:5px}.side-head>.panel-links button,.side-head>#profileBtn{font-size:11px;padding-left:5px;padding-right:5px}.simple-courses .course-tools button{font-size:11px;padding:7px 8px}}
 </style>
+<template id="projectReadmeMarkdown">
+# ResuWeave
+
+ResuWeave 是一个简历工作台。你可以在这里集中整理自己的教育、实习、项目、比赛和技能经历，根据不同申请场景创建多个简历版本，并导出最终简历文件。
+
+当你的经历越来越多时，你通常需要面向不同岗位调整简历内容。ResuWeave 希望把这个过程变得更简单：你只需要长期维护一份完整的经历底稿，再根据不同目标选择、组合和调整其中的内容。
+
+---
+
+## 1. 开始使用
+
+你可以通过三种方式进入 ResuWeave，选择最适合当前情况的一种即可。
+
+### 1.1 打开现有项目
+
+如果你之前已经使用过 ResuWeave，可以直接导入保存的 `.resume.json` 项目文件。
+
+项目文件会保存之后仍然可以继续编辑的数据，包括经历、简历版本以及相关设置。重新导入以后，你可以继续维护经历库、调整不同版本并再次导出。你也可以通过这种方式在不同浏览器或设备之间迁移项目，并将项目文件作为长期备份保存。
+
+### 1.2 从模板开始
+
+如果你是第一次使用，也可以直接从现有模板创建项目。
+
+模板会提供一份已经建立基本结构的简历。你可以在此基础上替换个人信息、修改经历内容、调整模块，并继续选择不同样式。这种方式适合希望快速完成第一份简历的情况。
+
+### 1.3 使用自己的 AI 创建项目
+
+如果你已经拥有旧简历、个人经历介绍、项目材料或其他文字信息，也可以让自己常用的 AI 帮你完成第一次数据整理。
+
+ResuWeave 可以提供 **Sample JSON、项目结构说明和 Prompt**。你可以将这些内容和自己的个人信息一起交给 ChatGPT、Claude、Gemini 或其他能够生成结构化 JSON 的 AI 工具。AI 根据指定结构整理完成后，会生成一个项目文件。将这个文件导入 ResuWeave，就可以直接进入可视化编辑器继续修改。
+
+---
+
+## 2. 经历库与多版本简历
+
+ResuWeave 会分别管理你的完整经历和不同简历版本。
+
+经历库适合保存相对完整的个人背景。例如一段实习经历可以保留更多项目细节、工作内容和成果，不需要因为当前简历只有一页就提前删减。制作某个具体简历版本时，你可以再根据目标岗位选择其中最相关的经历。
+
+不同版本可以使用同一个经历库，同时保持各自独立的内容选择、顺序和布局。随着申请方向变化，你可以继续创建新的版本，而原有经历仍然保留在统一的底稿中。
+
+---
+
+## 3. 编辑与预览
+
+进入编辑器后，你可以继续修改基础信息、经历内容以及当前简历版本的结构。不同内容模块可以根据申请场景进行选择和排序，也可以切换模板、照片以及其他展示设置。编辑结果会同步反映在简历预览区域，因此你可以一边修改内容，一边观察最终版面的变化。
+
+---
+
+## 4. 项目文件
+
+`.resume.json` 是 ResuWeave 用来保存完整项目数据的文件格式。
+
+最终导出的 PDF、PNG 或 HTML 更适合投递和分享，而 `.resume.json` 可以用于继续编辑和恢复项目，项目文件中保存着你的经历库、简历版本以及相关配置。
+
+因此你可以在完成重要修改后导出一份项目文件作为备份，如果之后更换设备或浏览器，也可以重新导入这个文件继续编辑。
+
+---
+
+## 5. Local-first
+
+ResuWeave 采用本地编辑的方式。你的简历通常包含姓名、联系方式、教育背景、实习经历等个人信息，核心编辑流程在本地完成。你不需要注册账号，也不需要依赖远程服务器才能创建和管理简历，`.resume.json` 项目文件可以由你自己保存、迁移和备份。
+
+如果你使用 AI 辅助初始化，也可以自行决定向 AI 服务提供哪些信息。
+
+---
+
+## 6. 导出
+
+完成编辑后，你可以将当前简历输出为不同格式。HTML 适合保留网页形式的展示结果，PNG 适合快速预览和分享，正式投递时则可以通过浏览器打印功能保存为 PDF。即使最终简历已经导出，也建议同时保留对应的项目文件，方便之后继续修改。
+
+---
+
+## 7. 项目当前状态
+
+目前已经覆盖项目初始化、经历整理、多版本管理、模板编辑、实时预览和文件导出等核心流程，可以完成完整的个人简历管理工作。希望让你在拥有越来越多简历版本之后，仍然只需要维护一套清晰、完整的个人经历数据库。
+</template>
 <script src="assets/html2canvas.min.js"></script>
 <script>
 /* Local-first UI. No uploads or remote services. */
@@ -950,26 +1029,27 @@ $('#backToProjects').onclick=goHome;
 v6SimpleHome=function(){
   document.body.dataset.mode='home';document.title='ResuWeave';
   $('#projectHome').innerHTML=`<div class="start-shell"><div class="welcome-copy"><h1>欢迎！开始整理你的简历吧</h1></div><div class="start-grid"><section class="start-card"><h1>打开已有文件</h1><div class="drop-target" id="openResume" role="button" tabindex="0" aria-label="打开简历项目文件"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M7 15V9h13l5 6h16v25H7z"/><path d="M7 20h34"/></svg><span>选择项目文件，或拖到这里</span><small>.resume.json · 继续编辑</small></div></section><section class="start-card"><h1>从已有模板创建</h1><div class="start-previews">${['blue','classic','sidebar'].map((id,i)=>{const t=THEMES.find(t=>t.id===id),s=v6SampleForTheme(i);return`<div class="start-sample-preview"><div class="sample-thumb">${v6SamplePreview(t,s)}</div></div>`}).join('')}</div><button class="primary" id="chooseTemplate">选择模板 →</button><div class="start-card-tools"><button type="button" id="downloadAiSample">下载 AI 填写样例</button><button type="button" id="importJson">导入 JSON</button></div></section></div></div>`;
-  $('.welcome-copy').insertAdjacentHTML('beforeend','<button type="button" id="openGuide" aria-haspopup="dialog">使用说明</button>');
+  $('.start-shell').insertAdjacentHTML('beforeend','<div class="readme-entry"><button type="button" id="openReadme" aria-haspopup="dialog">阅读项目说明</button></div>');
   const drop=$('#openResume');drop.onclick=()=>openExisting();drop.onkeydown=e=>{if(['Enter',' '].includes(e.key)){e.preventDefault();openExisting()}};drop.ondragover=e=>{e.preventDefault();drop.classList.add('drag-over')};drop.ondragleave=()=>drop.classList.remove('drag-over');drop.ondrop=e=>{e.preventDefault();drop.classList.remove('drag-over');if(e.dataTransfer.files[0])importResume(e.dataTransfer.files[0])};
-  $('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();$('#downloadAiSample').onclick=v8ShowAiTemplate;$('#importJson').onclick=()=>openExisting();$('#openGuide').onclick=v9ShowGuide;
-  v9ShowGuideOnce();
+  $('#chooseTemplate').onclick=()=>v6ShowTemplatePicker();$('#downloadAiSample').onclick=v8ShowAiTemplate;$('#importJson').onclick=()=>openExisting();$('#openReadme').onclick=v9ShowReadme;
 };
-const v9GuideKey='resuweave-guide-seen-v1';
-let v9GuideShownThisSession=false;
-function v9ShowGuide(){
-  openDialog(`<div class="guide-dialog"><h2>欢迎使用 ResuWeave</h2><p>长期维护一份完整的经历底稿，再为不同申请目标组合简历版本。</p><div class="guide-options"><div><strong>打开现有项目</strong><span>导入之前保存的 .resume.json，接着编辑。</span></div><div><strong>从模板开始</strong><span>选择一份示例，替换个人信息和经历内容。</span></div><div><strong>用 AI 整理</strong><span>下载样例 JSON，把它、提示词和已有简历交给你常用的 AI，再导入结果。</span></div></div><p class="guide-note">简历在本地编辑；请定期下载项目文件备份。PDF、PNG、HTML 用于投递，.resume.json 用于继续编辑。</p><div class="dialog-actions"><a href="https://github.com/Zhangyiming666/ResuWeave#readme" target="_blank" rel="noopener noreferrer">阅读完整说明 ↗</a><button type="button" class="primary" data-close>开始使用</button></div></div>`);
+function v9RenderMarkdown(source){
+  const inline=value=>esc(value).replace(/`([^`]+)`/g,'<code>$1</code>').replace(/\*\*([^*]+)\*\*/g,'<strong>$1</strong>');
+  const lines=source.trim().split(/\r?\n/),parts=[],paragraph=[];
+  const flush=()=>{if(paragraph.length){parts.push('<p>'+inline(paragraph.join(' '))+'</p>');paragraph.length=0}};
+  for(const line of lines){
+    const value=line.trim(),heading=/^(#{1,3})\s+(.+)$/.exec(value);
+    if(!value){flush();continue}
+    if(value==='---'){flush();parts.push('<hr>');continue}
+    if(heading){flush();const level=heading[1].length;parts.push('<h'+level+'>'+inline(heading[2])+'</h'+level+'>');continue}
+    paragraph.push(value);
+  }
+  flush();return parts.join('');
 }
-function v9ShowGuideOnce(){
-  if(v9GuideShownThisSession)return;
-  let seen=false;try{seen=localStorage.getItem(v9GuideKey)==='1'}catch(e){}
-  if(seen)return;
-  queueMicrotask(()=>{
-    const dialog=$('#editor');if(v9GuideShownThisSession||document.body.dataset.mode!=='home'||dialog.open)return;
-    v9GuideShownThisSession=true;
-    v9ShowGuide();
-    dialog.addEventListener('close',()=>{try{localStorage.setItem(v9GuideKey,'1')}catch(e){}},{once:true});
-  });
+function v9ShowReadme(){
+  const source=$('#projectReadmeMarkdown').content.textContent;
+  openDialog(`<div class="readme-content">${v9RenderMarkdown(source)}</div><div class="dialog-actions"><button type="button" class="primary" data-close>关闭</button></div>`);
+  const dialog=$('#editor');dialog.classList.add('readme-dialog');dialog.addEventListener('close',()=>dialog.classList.remove('readme-dialog'),{once:true});
 }
 renderHome=v6SimpleHome;
 if(projectDB)renderHome();
